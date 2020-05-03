@@ -13,13 +13,13 @@ const getTrackInfo = async (videoId) => {
 };
 
 export const trackSearch = async (query: string, currentStream?: StreamData) => {
-  const response =  await fetch(`${baseUrl}/api/v1/search?q=${query}&sortBy=relevance&page=1`);
+  const response =  await fetch(`${baseUrl}/api/v1/search?q=${query}&sortBy=view_count&page=1`);
   if (!response.ok) {
     throw new Error('invidious search failed');
   }
   const result = await response.json();
 
-  result.shift();
+  /* result.shift(); */
 
   const track = currentStream
     ? result.find(({ videoId }) => currentStream.id !== videoId)
