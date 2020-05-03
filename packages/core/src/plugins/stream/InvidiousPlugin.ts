@@ -16,17 +16,20 @@ class InvidiousPlugin extends StreamProviderPlugin {
     const terms = query.artist + ' ' + query.track;
     try {
       const {
-        adaptiveFormats,
+        /* adaptiveFormats, */
         lengthSeconds,
         title,
         videoId,
         videoThumbnails
       } = await Invidious.trackSearch(terms);
 
+      const response = await fetch(`${Invidious.baseUrl}/latest_version?id=${videoId}&itag=18&local=true`);
+
       return {
         source: this.sourceName,
         id: videoId,
-        stream: adaptiveFormats.find(({ container, type }) => type.includes('audio') && container === 'webm').url,
+        /* stream: adaptiveFormats.find(({ container, type }) => type.includes('audio') && container === 'webm').url, */
+        stream: response.url,
         duration: lengthSeconds,
         title,
         thumbnail: videoThumbnails[3].url

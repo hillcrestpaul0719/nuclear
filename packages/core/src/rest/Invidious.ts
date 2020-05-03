@@ -1,10 +1,10 @@
 import { getOption } from '../persistence/store';
 import { StreamData } from '../plugins/plugins.types';
 
-const baseUrl = getOption('invidious.url');
+export const baseUrl = getOption('invidious.url');
 
 const getTrackInfo = async (videoId) => {
-  const response = await fetch(`${baseUrl}/api/v1/videos/${videoId}&local=true`);
+  const response = await fetch(`${baseUrl}/api/v1/videos/${videoId}`);
   if (!response.ok) {
     throw new Error('invidious track info failed');
   }
